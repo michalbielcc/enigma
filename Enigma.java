@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.List;
 import java.lang.Integer;
+
+
 class Enigma {
 
 
@@ -15,7 +17,6 @@ class Enigma {
         for (char letter : output) {
             asciiConverted.add((int) letter);
         }
-
         return asciiConverted;
     } 
 
@@ -64,8 +65,6 @@ class Enigma {
     }
 
     
-
-
     private static String getInput(String message) {
 
         Scanner reader = new Scanner(System.in); 
@@ -81,8 +80,20 @@ class Enigma {
         for (String element : args) {
             data.add(element);
         }
-        if (data.get(1).equals("caesar")) {
+        data.add("1");
+        if (data.get(0).equals("-l")) {
+            System.out.println("Aviable ciphers: Caesar, donKnowYet");
+            System.exit(0);
+        } else if (data.get(0).equals("-h")) {
+            System.out.println("For program to work type:\n\n'java Enigma [parameter] [cipher] [key]' where key is optional.\n\nParameters: '-e' to encode your message, '-d' to decode it.\n\nFor list of cyphers type 'java Enigma -l'.");
+            System.exit(0);         
+        } else if (data.get(1).equals("caesar")) {
             System.out.println(caesarEncryptDecrypt(data.get(2), data.get(0)));
+        } else if (data.get(1).equals("dontKnowYet") {
+            //dontKnowYet();
+        }
+        else {
+            System.out.println("Invalid program parameters, try again. \nFor help type: 'java Enigma -h'");
         }
 
 
