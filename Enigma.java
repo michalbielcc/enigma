@@ -38,6 +38,10 @@ class Enigma {
     private static String caesarEncryptDecrypt(String toShift, String encodeDecode) {
 
         int shift = Integer.parseInt(toShift);
+        if (shift > 20 || shift < 1) {
+            System.out.println("Keep step between 1 and 20");
+            System.exit(0);
+        }
         ArrayList<Integer> forConversion = new ArrayList<Integer>();
         List<Integer> converted = new ArrayList<>();
         for (int number : convertToAscii(getInput("Type something: "))) {
@@ -89,14 +93,11 @@ class Enigma {
             System.exit(0);         
         } else if (data.get(1).equals("caesar")) {
             System.out.println(caesarEncryptDecrypt(data.get(2), data.get(0)));
-        } else if (data.get(1).equals("dontKnowYet") {
+        } else if (data.get(1).equals("dontKnowYet")) {
             //dontKnowYet();
         }
         else {
             System.out.println("Invalid program parameters, try again. \nFor help type: 'java Enigma -h'");
         }
-
-
-    }
-    
+    }   
 }
