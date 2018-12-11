@@ -1,41 +1,91 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-
-
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.List;
+import java.lang.Integer;
 class Enigma {
 
 
-    private static ArrayList<String> readData(String[] input) {
+    private static ArrayList<Integer> convertToAscii(String data) {
 
-        ArrayList<String> data = new ArrayList<String>();
-        Collections.addAll(data, input);
-        if (data.size() == 0) {
-            System.out.println("Missing input/parameter, try again");
-            System.exit(0);
+        ArrayList<Integer> asciiConverted = new ArrayList<Integer>();
+        char[] output = data.toCharArray();
+        for (char letter : output) {
+            asciiConverted.add((int) letter);
         }
-        return data;
+
+        return asciiConverted;
+    } 
+
+
+    private static String convertToLetters(List<Integer> input) {
+
+        List<String> output = new ArrayList<>();
+        String str = null;
+        for (int number : input) {
+            str = Character.toString((char)number);
+            output.add(str);
+        }
+        String message = String.join("", output);
+        System.out.println(input);
+        return message;
     }
 
 
-    private static ArrayList<String> getParameters(ArrayList<String> data) {
+    private static String caesarEncryptDecrypt(String toShift, String encodeDecode) {
 
-        ArrayList<String> parameters = new ArrayList<String>(data.subList(1, 3));
-        return parameters;
+        int shift = Integer.parseInt(toShift);
+        ArrayList<Integer> forConversion = new ArrayList<Integer>();
+        List<Integer> converted = new ArrayList<>();
+        for (int number : convertToAscii(getInput("Type something: "))) {
+            forConversion.add(number);
+        }
+        System.out.println(forConversion);
+        if (encodeDecode.equals("-e")) {
+            for (int number : forConversion) {
+                if (number < 107) {
+                    converted.add(number + shift);
+                } else {
+                    converted.add(number + shift - 95);
+                }
+            }
+        } else {
+            for (int number : forConversion) {
+                if (number > 21) {
+                    converted.add(number - shift);
+                } else {
+                    converted.add(number - shift + 95);
+                }
+            }
+        }
+        return convertToLetters(converted);
     }
 
+    
 
-    private static String toCipher(ArrayList<String> data) {
 
-        return data.get(0);
-    }
+    private static String getInput(String message) {
+
+        Scanner reader = new Scanner(System.in); 
+        System.out.print(message);
+        String choice = reader.nextLine();
+        return choice;
+      }
 
 
     public static void main(String[] args) throws IOException {
 
-        readData(args);
-        System.out.println(getParameters(readData(args)));
-        System.out.println(toCipher(readData(args)));
+        ArrayList<String> data = new ArrayList<String>();
+        for (String element : args) {
+            data.add(element);
+        }
+        if (data.get(1).equals("caesar")) {
+            System.out.println(caesarEncryptDecrypt(data.get(2), data.get(0)));
+        }
+
+
     }
     
 }
