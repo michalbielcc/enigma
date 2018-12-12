@@ -38,8 +38,8 @@ class Enigma {
     private static String caesarEncryptDecrypt(String toShift, String encodeDecode) {
 
         int shift = Integer.parseInt(toShift);
-        if (shift > 20 || shift < 1) {
-            System.out.println("Keep step between 1 and 20");
+        if (shift > 50 || shift < 1) {
+            System.out.println("Keep step between 1 and 50");
             System.exit(0);
         }
         ArrayList<Integer> forConversion = new ArrayList<Integer>();
@@ -50,7 +50,7 @@ class Enigma {
         System.out.println(forConversion);
         if (encodeDecode.equals("-e")) {
             for (int number : forConversion) {
-                if (number < 107) {
+                if (number < 78) {
                     converted.add(number + shift);
                 } else {
                     converted.add(number + shift - 95);
@@ -58,7 +58,7 @@ class Enigma {
             }
         } else {
             for (int number : forConversion) {
-                if (number > 21) {
+                if (number > 78) {
                     converted.add(number - shift);
                 } else {
                     converted.add(number - shift + 95);
