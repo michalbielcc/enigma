@@ -55,8 +55,8 @@ public class Cipher {
             str = Character.toString((char)number);
             output.add(str);
         }
-        String message = String.join("", output).replace("|", " ");
-        this.codedDecodedMessage = message;
+        String message = String.join("", output);
+        this.codedDecodedMessage = message.replace('|', ' ');
     }
 
     private String getKey() {
@@ -89,7 +89,7 @@ public class Cipher {
             }
         } else {
             for (int number : forConversion) {
-                if (number - shift > 32) {
+                if (number - shift > 31) {
                     converted.add(number - shift);
                 } else {
                     converted.add(number - shift + 95);

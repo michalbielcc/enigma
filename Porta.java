@@ -8,7 +8,7 @@ public class Porta {
     private String input;
     private String key;
     private String alphabet = "abcdefghijklmnopqrstuvwxyz";
-    private ArrayList<String> shifted = new ArrayList<String>();
+    private String zeroPosition = "nopqrstuvwxyzabcdefghijklm";
     private String encodedDecoded = "";
     private String[] indexIndicator = {"ab","cd","ef","gh","ij","kl","mn","op","qr","st","uv","wx","yz"};
 
@@ -22,8 +22,8 @@ public class Porta {
         this.key = formatedKey;
     }
 
-    private String evenOutKeyToInput(String keyy) {
-        String key = keyy;
+    private String evenOutKeyToInput(String input) {
+        String key = input;
         ArrayList<String> actualKey = new ArrayList<>();
         if (input.length() == key.length()){
             for (String letter : key.split("")) {
@@ -59,10 +59,31 @@ public class Porta {
         return key;
     }
 
-    public Integer encodeDecode() {
-        return alphabet.indexOf("e");
+  /*   private int keyConstructor(int index) {
+        ArrayList<String> pairs = new ArrayList<>();
+        for (String element: indexIndicator) {
+            pairs.add(element);
+        }
+        for (String element : pairs) {
+            for (String letter : element.split("")) {
+                if (input.charAt(index) == (letter)) {
+                    return element.indexOf(element);
+                }
+            }
+        }
         
-        
-        
+
     }
+
+   public Integer encodeDecode() {
+
+        for (int index = 0; index < input.length(); index++) {
+            if (input.charAt(index) )
+            (key.charAt(index));
+        }
+
+
+        input.charAt(index);
+        return alphabet.indexOf("e");
+    } */
 }

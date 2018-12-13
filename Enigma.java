@@ -40,6 +40,8 @@ public class Enigma{
     }
 
     public static  String filterInputs(String input) {
+        if (input.toLowerCase().replaceAll("[^a-z]", "").isEmpty() == true) {
+        }
         return input.toLowerCase().replaceAll("[^a-z]", "");
     }
     
@@ -68,8 +70,8 @@ public class Enigma{
             } else if (data.get(1).equals("porta")) {
                 //System.out.println(filterInputs(getInputs()));
                 Porta cipher1 = new Porta(filterInputs(getInputs("Type your input (hit [enter] to finish): ")), filterInputs(getInputs("Type your Key here [enter to finish] : ")));
-                System.out.println(cipher1.getKey());
-                System.out.println(cipher1.encodeDecode());
+               // System.out.println(cipher1.getKey());
+               // System.out.println(cipher1.encodeDecode());
             }
             else {
                 System.out.println("Invalid program parameters, try again. \nFor help type: 'java Enigma -h'");
