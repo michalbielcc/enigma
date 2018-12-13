@@ -10,7 +10,6 @@ import java.lang.Integer;
 public class Cipher {
 
     private String input;
-    private String cipher;
     private String key;
     private String encodeDecode;
     private String codedDecodedMessage;
@@ -18,32 +17,29 @@ public class Cipher {
 
     public Cipher() {
         this.input = "";
-        this.cipher = "";
         this.encodeDecode = "";
         this.key = "";
         this.codedDecodedMessage = "";
     }
 
-    public Cipher(String input, String cipher, String encodeDecode) {
+    public Cipher(String input, String encodeDecode) {
         this.input = input;
-        this.cipher = cipher;
         this.encodeDecode = encodeDecode;
         this.key = "30";
         this.codedDecodedMessage = "";
     }
 
-    public Cipher(String input, String cipher, String encodeDecode, String key) {
+    public Cipher(String input, String encodeDecode, String key) {
         this.input = input;
-        this.cipher = cipher;
         this.encodeDecode = encodeDecode;
         this.key = key;
         this.codedDecodedMessage = "";
 
     }
   
-    private ArrayList<Integer> convertToAscii(String data) {
+    private List<Integer> convertToAscii(String data) {
 
-        ArrayList<Integer> asciiConverted = new ArrayList<Integer>();
+        List<Integer> asciiConverted = new ArrayList<Integer>();
         char[] output = data.toCharArray();
         for (char letter : output) {
             asciiConverted.add((int) letter);
@@ -67,10 +63,6 @@ public class Cipher {
         return key;
     }
 
-    private String getEncodeDecode() {
-        return encodeDecode;
-    }
-
     public String getCodedEncodedMessage() {
         return codedDecodedMessage;
     }
@@ -82,7 +74,7 @@ public class Cipher {
     public void caesarEncryptDecrypt() {
 
         int shift = Integer.parseInt(getKey());
-        ArrayList<Integer> forConversion = new ArrayList<Integer>();
+        List<Integer> forConversion = new ArrayList<Integer>();
         List<Integer> converted = new ArrayList<>();
         for (int number : convertToAscii(getInput())) {
             forConversion.add(number);

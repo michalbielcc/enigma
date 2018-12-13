@@ -7,22 +7,22 @@ import java.util.List;
 import java.lang.Integer;
 
 
-public class Enigma extends Cipher {
+public class Enigma{
 
 
-    public static String getInputs() {
+    public static String getInputs(String message) {
 
         boolean validator = true;
         List<String> output = new ArrayList<String>();
         while (validator == true) {
             validator = false;
-            String input = getInput("Type your message(hit [enter] to finish input): ");
+            String input = getInput(message);
             if (input.isEmpty() != true) {
                 output.add(input);
                 validator = true;
             }
             if (output.isEmpty() == true) {
-                System.out.println("Cannot encode empty message");
+                System.out.println("Cannot encode empty input");
                 System.exit(0);
             }           
         }
@@ -38,8 +38,11 @@ public class Enigma extends Cipher {
         String choice = reader.nextLine();
         return choice;
     }
-    
 
+    public static  String filterInputs(String input) {
+        return input.toLowerCase().replaceAll("[^a-z]", "");
+    }
+    
 
     public static void main(String[] args) {
 
@@ -55,13 +58,18 @@ public class Enigma extends Cipher {
                 System.out.println("For program to work type:\n\n'java Enigma [parameter] [cipher] [key]' where key is optional.\n\nParameters: '-e' to encode your message, '-d' to decode it.\n\nFor list of cyphers type 'java Enigma -l'.");
                 System.exit(0);         
             } else if (data.get(1).equals("caesar") && data.size() > 3) {
-                Cipher cipher = new Cipher(getInputs(), "caesar", data.get(0), data.get(2));
+                Cipher cipher = new Cipher(getInputs("Type your input (hit [enter] to finish): "), data.get(0), data.get(2));
                 cipher.caesarEncryptDecrypt();
                 System.out.println(cipher.getCodedEncodedMessage());
             } else if (data.get(1).equals("caesar")) {
-                Cipher cipher = new Cipher(getInputs(), "caesar", data.get(0));
+                Cipher cipher = new Cipher(getInputs("Type your input (hit [enter] to finish): "), data.get(0));
                 cipher.caesarEncryptDecrypt();
                 System.out.println(cipher.getCodedEncodedMessage());
+            } else if (data.get(1).equals("porta")) {
+                //System.out.println(filterInputs(getInputs()));
+                Porta cipher1 = new Porta(filterInputs(getInputs("Type your input (hit [enter] to finish): ")), filterInputs(getInputs("Type your Key here [enter to finish] : ")));
+                System.out.println(cipher1.getKey());
+                System.out.println(cipher1.encodeDecode());
             }
             else {
                 System.out.println("Invalid program parameters, try again. \nFor help type: 'java Enigma -h'");
