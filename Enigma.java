@@ -40,8 +40,6 @@ public class Enigma{
     }
 
     public static  String filterInputs(String input) {
-        if (input.toLowerCase().replaceAll("[^a-z]", "").isEmpty() == true) {
-        }
         return input.toLowerCase().replaceAll("[^a-z]", "");
     }
     
@@ -54,7 +52,7 @@ public class Enigma{
         }
         try {
             if (data.get(0).equals("-l")) {
-                System.out.println("Aviable ciphers: Caesar, donKnowYet");
+                System.out.println("Aviable ciphers: Caesar, Porta");
                 System.exit(0);
             } else if (data.get(0).equals("-h")) {
                 System.out.println("For program to work type:\n\n'java Enigma [parameter] [cipher] [key]' where key is optional.\n\nParameters: '-e' to encode your message, '-d' to decode it.\n\nFor list of cyphers type 'java Enigma -l'.");
@@ -68,10 +66,11 @@ public class Enigma{
                 cipher.caesarEncryptDecrypt();
                 System.out.println(cipher.getCodedEncodedMessage());
             } else if (data.get(1).equals("porta")) {
-                //System.out.println(filterInputs(getInputs()));
                 Porta cipher1 = new Porta(filterInputs(getInputs("Type your input (hit [enter] to finish): ")), filterInputs(getInputs("Type your Key here [enter to finish] : ")));
-               // System.out.println(cipher1.getKey());
-               // System.out.println(cipher1.encodeDecode());
+                //System.out.println(cipher1.getKey());
+                cipher1.encodeDecode();
+                System.out.println(cipher1.getCodedDecodedMessage());
+                System.exit(0);
             }
             else {
                 System.out.println("Invalid program parameters, try again. \nFor help type: 'java Enigma -h'");

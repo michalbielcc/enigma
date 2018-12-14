@@ -7,10 +7,7 @@ public class Porta {
 
     private String input;
     private String key;
-    private String alphabet = "abcdefghijklmnopqrstuvwxyz";
-    private String zeroPosition = "nopqrstuvwxyzabcdefghijklm";
     private String encodedDecoded = "";
-    private String[] indexIndicator = {"ab","cd","ef","gh","ij","kl","mn","op","qr","st","uv","wx","yz"};
 
 
     public Porta () {
@@ -22,8 +19,8 @@ public class Porta {
         this.key = formatedKey;
     }
 
-    private String evenOutKeyToInput(String input) {
-        String key = input;
+    private String evenOutKeyToInput(String key1) {
+        String key = key1;
         ArrayList<String> actualKey = new ArrayList<>();
         if (input.length() == key.length()){
             for (String letter : key.split("")) {
@@ -34,11 +31,10 @@ public class Porta {
                 for (String letter : key.split("")) {
                     actualKey.add(letter);
                 }
-                System.out.println(actualKey.size());
             }
             while (input.length() < actualKey.size()) {
-                actualKey.remove(actualKey.size());
-        } System.out.println(actualKey.size());
+                actualKey.remove(actualKey.size()- 1);
+        } 
         } else {
             ArrayList<String> tempo = new ArrayList<>();
             for (String letter : key.split("")) {
@@ -55,35 +51,46 @@ public class Porta {
         return input;
     }
 
-    public String getKey() {
-        return key;
+    public String getCodedDecodedMessage() {
+        return encodedDecoded;
     }
-
-  /*   private int keyConstructor(int index) {
-        ArrayList<String> pairs = new ArrayList<>();
-        for (String element: indexIndicator) {
-            pairs.add(element);
-        }
-        for (String element : pairs) {
-            for (String letter : element.split("")) {
-                if (input.charAt(index) == (letter)) {
-                    return element.indexOf(element);
-                }
+    
+    private Integer getCodeKeyIdIndex(String letter) {
+        String[] codeKeysIdList = {"ab","cd","ef","gh","ij","kl","mn","op","qr","st","uv","wx","yz"};
+        Integer output = 0;
+        for (String element : codeKeysIdList) {
+            if (element.contains(letter)) {
+                return output;
             }
-        }
-        
-
+            output ++;
+        }       
+        return output;
     }
 
-   public Integer encodeDecode() {
-
+    public void encodeDecode() {
+        ArrayList<String> output = new ArrayList<>();
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        ArrayList<String> codeKeys = new ArrayList<>();
+        codeKeys.add("nopqrstuvwxyzabcdefghijklm");
+        codeKeys.add("opqrstuvwxyznmabcdefghijkl");
+        codeKeys.add("pqrstuvwxyznolmabcdefghijk");
+        codeKeys.add("qrstuvwxyznopklmabcdefghij");
+        codeKeys.add("rstuvwxyznopqjklmabcdefghi");
+        codeKeys.add("stuvwxyznopqrijklmabcdefgh");
+        codeKeys.add("tuvwxyznopqrshijklmabcdefg");
+        codeKeys.add("uvwxyznopqrstghijklmabcdef");
+        codeKeys.add("vwxyznopqrstufghijklmabcde");
+        codeKeys.add("wxyznopqrstuvefghijklmabcd");
+        codeKeys.add("xyznopqrstuvwdefghijklmabc");
+        codeKeys.add("yznopqrstuvwxcdefghijklmab");
+        codeKeys.add("znopqrstuvwxybcdefghijklma");
         for (int index = 0; index < input.length(); index++) {
-            if (input.charAt(index) )
-            (key.charAt(index));
+            String temp = codeKeys.get(getCodeKeyIdIndex(Character.toString(key.charAt(index))));
+            int tempIndex = temp.indexOf(input.charAt(index));
+            output.add(Character.toString(alphabet.charAt(tempIndex))); 
         }
-
-
-        input.charAt(index);
-        return alphabet.indexOf("e");
-    } */
+        this.encodedDecoded = String.join("", output);
+    }
+        
+    
 }
