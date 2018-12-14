@@ -19,8 +19,8 @@ public class Porta {
         this.key = formatedKey;
     }
 
-    private String evenOutKeyToInput(String key1) {
-        String key = key1;
+    private String evenOutKeyToInput(String keyInput) {
+        String key = keyInput;
         ArrayList<String> actualKey = new ArrayList<>();
         if (input.length() == key.length()){
             for (String letter : key.split("")) {
@@ -47,10 +47,6 @@ public class Porta {
         return String.join("", actualKey);
     }
 
-    public String getOutput() {
-        return input;
-    }
-
     public String getCodedDecodedMessage() {
         return encodedDecoded;
     }
@@ -67,7 +63,7 @@ public class Porta {
         return output;
     }
 
-    public void encodeDecode() {
+    public void EncryptDecrypt() {
         ArrayList<String> output = new ArrayList<>();
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
         ArrayList<String> codeKeys = new ArrayList<>();

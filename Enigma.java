@@ -1,10 +1,6 @@
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.List;
-import java.lang.Integer;
 
 
 public class Enigma{
@@ -29,8 +25,7 @@ public class Enigma{
         String str = String.join("|", output);
         return str;
     }
-
-    
+   
     public static String getInput(String message) {
 
         Scanner reader = new Scanner(System.in); 
@@ -42,41 +37,43 @@ public class Enigma{
     public static  String filterInputs(String input) {
         return input.toLowerCase().replaceAll("[^a-z]", "");
     }
-    
+
 
     public static void main(String[] args) {
 
-        ArrayList<String> data = new ArrayList<String>();
-        for (String element : args) {
-            data.add(element);
+        if (args.length < 3) {
+            System.out.println("Missing program parameters, try again. \nFor help type: 'java Enigma -h'");
+            System.exit(0);
         }
-        try {
-            if (data.get(0).equals("-l")) {
-                System.out.println("Aviable ciphers: Caesar, Porta");
-                System.exit(0);
-            } else if (data.get(0).equals("-h")) {
-                System.out.println("For program to work type:\n\n'java Enigma [parameter] [cipher] [key]' where key is optional.\n\nParameters: '-e' to encode your message, '-d' to decode it.\n\nFor list of cyphers type 'java Enigma -l'.");
-                System.exit(0);         
-            } else if (data.get(1).equals("caesar") && data.size() > 3) {
-                Cipher cipher = new Cipher(getInputs("Type your input (hit [enter] to finish): "), data.get(0), data.get(2));
-                cipher.caesarEncryptDecrypt();
-                System.out.println(cipher.getCodedEncodedMessage());
-            } else if (data.get(1).equals("caesar")) {
-                Cipher cipher = new Cipher(getInputs("Type your input (hit [enter] to finish): "), data.get(0));
-                cipher.caesarEncryptDecrypt();
-                System.out.println(cipher.getCodedEncodedMessage());
-            } else if (data.get(1).equals("porta")) {
-                Porta cipher1 = new Porta(filterInputs(getInputs("Type your input (hit [enter] to finish): ")), filterInputs(getInputs("Type your Key here [enter to finish] : ")));
-                //System.out.println(cipher1.getKey());
-                cipher1.encodeDecode();
-                System.out.println(cipher1.getCodedDecodedMessage());
+        String encodeDecode = args[0];
+        String cipherType = args[1].toLowerCase();
+        String messageToCode = args[2];
+        if (encodeDecode.equals("-l")) {
+            System.out.println("Aviable ciphers: Caesar, Porta\nCaesar cypher takes shift parameter (number between 1 and 50)\nPorta cipher takes argument in form of string\nThis string will be striped of everything except letters");
+            System.exit(0);
+        } else if (encodeDecode.equals("-h")) {
+            System.out.println("For program to work type:\n\n'java Enigma [parameter] [cipher] [key]' where key is optional.\n\nParameters: '-e' to encode your message, '-d' to decode it.\n\nFor list of cyphers type 'java Enigma -l'.");
+            System.exit(0);         
+        } else if (cipherType.equals("caesar")) {
+            try {
+                int foo = Integer.parseInt(args[2]);
+            } catch (NumberFormatException ex) {
+                System.out.println("Invalid parameter for Caesar cypher.\nType java Enigma -h");
                 System.exit(0);
             }
-            else {
-                System.out.println("Invalid program parameters, try again. \nFor help type: 'java Enigma -h'");
+            Caesar cipher = new Caesar(getInputs("Type your input (hit [enter] to finish): "), encodeDecode, messageToCode);
+            cipher.EncryptDecrypt();
+            System.out.println(cipher.getCodedDecodedMessage());
+            System.exit(0);
+        } else if (cipherType.equals("porta")) {
+            if (args[2].replaceAll("[^a-z]", "").length() < 1) {
+                System.out.println("Everything from encryption key was filtered out.\nMake sure to use letters.");
+                System.exit(0);
             }
-        } catch (IndexOutOfBoundsException ex) {
-            System.out.println("Invalid (or lacking) program parameters, try again. \nFor help type: 'java Enigma -h'");
-        }
+            Porta cipher = new Porta(filterInputs(getInputs("Type your input (hit [enter] to finish): ")), filterInputs(args[2]));
+            cipher.EncryptDecrypt();
+            System.out.println(cipher.getCodedDecodedMessage());
+            System.exit(0);
+        }        
     }   
 }
